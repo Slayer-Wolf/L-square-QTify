@@ -29,7 +29,7 @@ function App() {
 		<>
 			<StyledEngineProvider injectFirst>
 				<Navbar searchData={[...topAlbums, ...newAlbums]} />
-				{/* <Outlet context={{data:{topAlbums, newAlbums, songs}}} /> */}
+				<Outlet context={{ data: { topAlbums, newAlbums, songs } }} />
 			</StyledEngineProvider>
 		</>
 	);
