@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Hero from "./components/Hero/Hero";
+import HomePage from "./pages/Home/Home";
+import Navbar from "./components/Navbar/Navbar";
+import { Outlet } from "react-router-dom";
+import { StyledEngineProvider } from "@mui/material/styles";
+import { fetchNewAlbums, fetchSongs, fetchTopAlbums } from "./api/api";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [data, setData] = useState([]);
+
+	const fetchData = (key, source) => {
+		source().then((data) => {
+			setData((prevState) => {
+				return { ...prevState, [key]: data };
+			});
+		});
+	};
+
+	useEffect(() => {
+		fetchData("topAlbums", fetchTopAlbums);
+		fetchData("newAlbums", fetchNewAlbums);
+		fetchData("songs", fetchSongs);
+	}, []);
+
+	const { topAlbums = [], newAlbums = [], songs = [] } = data;
+
+	return (
+		<>
+			<StyledEngineProvider injectFirst>
+				<Navbar searchData={[...topAlbums, ...newAlbums]} />
+				{/* <Outlet context={{data:{topAlbums, newAlbums, songs}}} /> */}
+			</StyledEngineProvider>
+		</>
+	);
 }
 
 export default App;
