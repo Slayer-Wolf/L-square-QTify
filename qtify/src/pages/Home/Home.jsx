@@ -12,13 +12,13 @@ const Home = () => {
 		<>
 			<Hero />
 			<div className={styles.wrapper}>
-				<Section title="Top Albums" data={topAlbums} type="albums" />
-				<Section title="New Albums" data={newAlbums} type="albums" />
+				<Section title="Top Albums" data={topAlbums} type="album" />
+				<Section title="New Albums" data={newAlbums} type="album" />
 				<Section
 					title="Songs"
 					data={songs}
+					type="songs"
 					filterSource={fetchFilters}
-					type="song"
 				/>
 			</div>
 		</>

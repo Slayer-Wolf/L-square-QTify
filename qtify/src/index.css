@@ -1,19 +1,39 @@
-body {
+:root {
+	--color-primary: #34c94b;
+	--color-black: #121212;
+	--color-white: #fff;
+}
+
+* {
 	margin: 0;
-	font-family: "Poppins", sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	padding: 0;
+}
+
+*,
+*::after,
+*::before {
 	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	font-family: "Poppins", sans-serif;
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+	background-color: var(--color-black);
+	color: var(--color-white);
 	overflow-x: hidden;
 }
 
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-		monospace;
+.swiper-slide {
+	width: auto !important;
 }
-:root {
-	--color-black: #000000;
-	--color-primary: #34c94b;
-	--color-white: #ffffff;
+
+img,
+svg {
+	display: block;
+	max-width: 100%;
 }

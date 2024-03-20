@@ -1,0 +1,45 @@
+.wrapper {
+	height: 232px;
+	margin: 12px;
+	width: 160px;
+}
+
+.card {
+	position: relative;
+	width: 160px;
+	height: 205px;
+	border-radius: 10px;
+	margin-bottom: 6px;
+	overflow: hidden;
+}
+
+.banner {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 42px;
+	font-weight: 400;
+	background-color: var(--color-white);
+	display: flex;
+	align-items: center;
+	padding: 6px;
+}
+.chip {
+	background-color: var(--color-black);
+	color: var(--color-white);
+}
+
+.titleWrapper {
+	margin-top: 6px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.chip {
+	border-radius: 16px;
+	padding-left: 8px;
+	padding-right: 8px;
+	font-size: 0.8125rem;
+	background-color: var(--color-black);
+}
