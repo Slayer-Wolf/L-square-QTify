@@ -12,14 +12,6 @@ const SongSection = ({
 	filteredData,
 	handleChangeIndex,
 }) => {
-	console.log(
-		type,
-		title,
-		filteredData,
-		handleChangeIndex,
-		"values at songSection",
-	);
-
 	return (
 		<div className={styles.wrapper}>
 			<div className={styles.heading}>

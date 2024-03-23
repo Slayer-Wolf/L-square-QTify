@@ -1,35 +1,22 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Button from "../Button/Button";
-import Logo from "../Logo/Logo";
-import Search from "../Search/Search";
+import React from "react";
 import styles from "./Navbar.module.css";
-import FeedbackModal from "../Modal/Modal";
+import Logo from "../Logo/Logo";
+import SearchBar from "../SearchBar/SearchBar";
+import Button from "../Button/Button";
 
-const Navbar = ({ data }) => {
-	// console.log(data);
-	const [modalOpen, setModalOpen] = useState(false);
+const Navbar = () => {
 
-	const handleOpenModal = () => {
-		setModalOpen(true);
-	};
+    return (
+        <>
+            <nav className={styles.navbar}>
+                <Logo />
+                <SearchBar search={"Search a song of your choice"} />
+                <Button children={"Give Feedback"} />
+            </nav>
 
-	const handleCloseModal = () => {
-		setModalOpen(false);
-	};
+        </>
 
-	return (
-		<nav className={styles.navbar}>
-			<Link to="/">
-				<Logo />
-			</Link>
-			<Search data={data} placeholder="Search a song of your choice" />
-			<Button onClick={handleOpenModal} className={styles.feedBtn} secondary>
-				Give Feedback
-			</Button>
-			<FeedbackModal open={modalOpen} handleClose={handleCloseModal} />
-		</nav>
-	);
-};
+    );
+}
 
 export default Navbar;

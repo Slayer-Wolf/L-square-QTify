@@ -50,7 +50,7 @@ const Home = () => {
 			return null;
 		}
 	};
-
+	console.log(songsData);
 	const generateNewSongs = (index) => {
 		let key = "";
 		if (index === 0) {
@@ -70,6 +70,10 @@ const Home = () => {
 			console.log("key: ", key);
 			return song?.genre?.key === key;
 		});
+		console.log(
+			"generateNewSongs triggered and filtered this Data: ",
+			newSongsArray,
+		);
 		setFilteredData(newSongsArray);
 	};
 
@@ -77,7 +81,7 @@ const Home = () => {
 		setValue(newValue);
 		generateNewSongs(newValue);
 	};
-	console.log(filteredData);
+	// console.log(filteredData);
 	useEffect(() => {
 		generateTopAlbumSongs();
 		generateNewAlbumSongs();

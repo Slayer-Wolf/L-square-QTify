@@ -1,24 +1,3 @@
-.wrapper {
-	position: relative;
-	margin-left: 31px;
-}
-
-.rightNavigation {
-	cursor: pointer;
-	position: absolute;
-	right: 10px;
-	top: 40%;
-	transform: translateY(-50%);
-	z-index: 10;
-	user-select: none;
-}
-
-.leftNavigation {
-	cursor: pointer;
-	position: absolute;
-	left: 10px;
-	top: 40%;
-	transform: translateY(-50%);
-	z-index: 10;
-	user-select: none;
+.wrapper{
+    position: relative;
 }
