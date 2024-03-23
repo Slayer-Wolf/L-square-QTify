@@ -7,7 +7,7 @@ import styles from "./Navbar.module.css";
 import FeedbackModal from "../Modal/Modal";
 
 const Navbar = ({ data }) => {
-	console.log(data);
+	// console.log(data);
 	const [modalOpen, setModalOpen] = useState(false);
 
 	const handleOpenModal = () => {

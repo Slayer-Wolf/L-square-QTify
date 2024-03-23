@@ -7,57 +7,53 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
 export default function Section({ title, data, filterSource, type }) {
-	const [carouselToggle, SetCarouselToggle] = useState(true);
+	const [carouselToggle, setCarouselToggle] = useState(true);
 	const [filters, setFilters] = useState([{ key: "all", label: "All" }]);
 	const [selectedFilterIndex, setSelectedFilterIndex] = useState(0);
-	const [value, setValue] = React.useState(0);
-	const allSongsTabs = ["All", "Rock", "Pop", "Jazz", "Blues"];
-
-	const handleToggle = () => {
-		SetCarouselToggle(!carouselToggle);
-	};
+	const [value, setValue] = useState(0);
 
 	useEffect(() => {
 		if (filterSource) {
 			filterSource().then((response) => {
 				const { data } = response;
-				setFilters([...filters, ...data]);
+				setFilters([{ key: "all", label: "All" }, ...data]); // Update setFilters to include "All" filter
 			});
 		}
-	}, []);
+	}, [filterSource]); // Remove filters from dependency array
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
-		setSelectedFilterIndex(newValue);
+		setSelectedFilterIndex(newValue); // Set selectedFilterIndex instead of value
 	};
+
 	function TabPanel(props) {
 		const { children, value, index } = props;
-		return <div>{value === index && <>{children}</>}</div>;
+		return (
+			<div
+				role="tabpanel"
+				hidden={value !== index}
+				id={`filter-tabpanel-${index}`}
+				aria-labelledby={`filter-tab-${index}`}
+			>
+				{value === index && <>{children}</>}
+			</div>
+		);
 	}
 
-	const showFilters = filters.length > 1;
-	const filteredData =
-		selectedFilterIndex !== 0
-			? data.filter(
-					(card) => card.genre.key === filters[selectedFilterIndex].key,
-			  )
-			: data;
-
-	const limitFilter = filters.slice(0, 5);
-	console.log(filteredData);
 	function a11yProps(index) {
 		return {
 			id: `filter-tab-${index}`,
 		};
 	}
+
+	const showFilters = filters.length > 1;
+
 	const newFilteredData = (tabIndex) => {
 		if (tabIndex === 0) {
 			return data; // Show all data for the "All" tab.
 		} else {
-			const tabLabel = ["Rock", "Pop", "Jazz", "Blues"][tabIndex - 1];
-			return data?.filter(
-				(item) => item?.genre?.key === tabLabel?.toLowerCase(),
-			);
+			const tabLabel = filters[tabIndex]?.key;
+			return data.filter((item) => item.genre.key === tabLabel.toLowerCase());
 		}
 	};
 
@@ -65,7 +61,10 @@ export default function Section({ title, data, filterSource, type }) {
 		<div>
 			<div className={Styles.header}>
 				<h3 style={{ fontSize: "20px" }}>{title}</h3>
-				<h4 className={Styles.toggleText} onClick={handleToggle}>
+				<h4
+					className={Styles.toggleText}
+					onClick={() => setCarouselToggle(!carouselToggle)}
+				>
 					{carouselToggle ? "Show All" : "Collapse All"}
 				</h4>
 			</div>
@@ -83,10 +82,10 @@ export default function Section({ title, data, filterSource, type }) {
 						}}
 						className={Styles.tab}
 					>
-						{limitFilter.map((genre, i) => (
+						{filters.map((genre, i) => (
 							<Tab
 								className={Styles.tabStyles}
-								key={genre.key}
+								key={genre.key + i} // Ensure key is unique
 								label={genre.label}
 								{...a11yProps(i)}
 							/>
@@ -106,19 +105,21 @@ export default function Section({ title, data, filterSource, type }) {
 				</Box>
 			) : (
 				<>
-					{allSongsTabs?.map((_, index) => (
+					{filters.map((_, index) => (
 						<TabPanel key={index} value={value} index={index}>
 							<div className={Styles.cardWrapper}>
 								{!carouselToggle ? (
 									<div className={Styles.wrapper}>
-										{newFilteredData?.map((item) => (
-											<Card key={item?.id} data={item} type={type} />
+										{newFilteredData(index).map((item, i) => (
+											<Card key={item.id + i} data={item} type={type} /> // Ensure key is unique
 										))}
 									</div>
 								) : (
 									<Carousel
 										data={newFilteredData(index)}
-										componentRender={(ele) => <Card data={ele} type={type} />}
+										componentRender={(ele) => (
+											<Card key={ele.id} data={ele} type={type} />
+										)} // Ensure key is unique
 									/>
 								)}
 							</div>
