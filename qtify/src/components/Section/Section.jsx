@@ -15,6 +15,7 @@ export default function Section({ title, data, filterSource, type }) {
 	const handleToggle = () => {
 		SetCarouselToggle(!carouselToggle);
 	};
+
 	useEffect(() => {
 		if (filterSource) {
 			filterSource().then((response) => {
@@ -23,18 +24,21 @@ export default function Section({ title, data, filterSource, type }) {
 			});
 		}
 	}, []);
-	function handleChange(e, newValue) {
+
+	const handleChange = (event, newValue) => {
 		setValue(newValue);
 		setSelectedFilterIndex(newValue);
-	}
-	// console.log(filters, "filterdata");
+	};
+
 	const showFilters = filters.length > 1;
-	const CardToShow = data.filter((card) =>
-		showFilters && selectedFilterIndex !== 0
-			? card.genre.key === filters[selectedFilterIndex].key
-			: card,
-	);
-	let limitFilter = filters.slice(0, 5);
+	const filteredData =
+		selectedFilterIndex !== 0
+			? data.filter(
+					(card) => card.genre.key === filters[selectedFilterIndex].key,
+			  )
+			: data;
+
+	const limitFilter = filters.slice(0, 5);
 
 	function a11yProps(index) {
 		return {
@@ -64,16 +68,14 @@ export default function Section({ title, data, filterSource, type }) {
 						}}
 						className={Styles.tab}
 					>
-						{limitFilter?.map((genre, i) => {
-							return (
-								<Tab
-									className={Styles.tabStyles}
-									key={genre.key}
-									label={genre.label}
-									{...a11yProps(i)}
-								/>
-							);
-						})}
+						{limitFilter.map((genre, i) => (
+							<Tab
+								className={Styles.tabStyles}
+								key={genre.key}
+								label={genre.label}
+								{...a11yProps(i)}
+							/>
+						))}
 					</Tabs>
 				</div>
 			)}
@@ -91,13 +93,13 @@ export default function Section({ title, data, filterSource, type }) {
 				<div className={Styles.cardWrapper}>
 					{!carouselToggle ? (
 						<div className={Styles.wrapper}>
-							{CardToShow?.map((item) => (
+							{filteredData.map((item) => (
 								<Card key={item?.id} data={item} type={type} />
 							))}
 						</div>
 					) : (
 						<Carousel
-							data={CardToShow}
+							data={filteredData}
 							componentRender={(ele) => <Card data={ele} type={type} />}
 						/>
 					)}

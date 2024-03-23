@@ -9,7 +9,6 @@ import SearchListItem from "./SearchListItem";
 import { useNavigate } from "react-router-dom";
 
 function Search({ data }) {
-	console.log(data);
 	const navigate = useNavigate();
 
 	function handleSearchClick(e) {
