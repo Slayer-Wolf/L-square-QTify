@@ -11,6 +11,7 @@ export default function Section({ title, data, filterSource, type }) {
 	const [filters, setFilters] = useState([{ key: "all", label: "All" }]);
 	const [selectedFilterIndex, setSelectedFilterIndex] = useState(0);
 	const [value, setValue] = React.useState(0);
+	const allSongsTabs = ["All", "Rock", "Pop", "Jazz", "Blues"];
 
 	const handleToggle = () => {
 		SetCarouselToggle(!carouselToggle);
@@ -29,6 +30,10 @@ export default function Section({ title, data, filterSource, type }) {
 		setValue(newValue);
 		setSelectedFilterIndex(newValue);
 	};
+	function TabPanel(props) {
+		const { children, value, index } = props;
+		return <div>{value === index && <>{children}</>}</div>;
+	}
 
 	const showFilters = filters.length > 1;
 	const filteredData =
@@ -39,12 +44,22 @@ export default function Section({ title, data, filterSource, type }) {
 			: data;
 
 	const limitFilter = filters.slice(0, 5);
-
+	console.log(filteredData);
 	function a11yProps(index) {
 		return {
 			id: `filter-tab-${index}`,
 		};
 	}
+	const newFilteredData = (tabIndex) => {
+		if (tabIndex === 0) {
+			return data; // Show all data for the "All" tab.
+		} else {
+			const tabLabel = ["Rock", "Pop", "Jazz", "Blues"][tabIndex - 1];
+			return data?.filter(
+				(item) => item?.genre?.key === tabLabel?.toLowerCase(),
+			);
+		}
+	};
 
 	return (
 		<div>
@@ -90,20 +105,26 @@ export default function Section({ title, data, filterSource, type }) {
 					<CircularProgress />
 				</Box>
 			) : (
-				<div className={Styles.cardWrapper}>
-					{!carouselToggle ? (
-						<div className={Styles.wrapper}>
-							{filteredData.map((item) => (
-								<Card key={item?.id} data={item} type={type} />
-							))}
-						</div>
-					) : (
-						<Carousel
-							data={filteredData}
-							componentRender={(ele) => <Card data={ele} type={type} />}
-						/>
-					)}
-				</div>
+				<>
+					{allSongsTabs?.map((_, index) => (
+						<TabPanel key={index} value={value} index={index}>
+							<div className={Styles.cardWrapper}>
+								{!carouselToggle ? (
+									<div className={Styles.wrapper}>
+										{newFilteredData?.map((item) => (
+											<Card key={item?.id} data={item} type={type} />
+										))}
+									</div>
+								) : (
+									<Carousel
+										data={newFilteredData(index)}
+										componentRender={(ele) => <Card data={ele} type={type} />}
+									/>
+								)}
+							</div>
+						</TabPanel>
+					))}
+				</>
 			)}
 		</div>
 	);
