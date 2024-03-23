@@ -35,7 +35,6 @@ const FeedbackModal = ({ open, handleClose }) => {
 	const [description, setDescription] = useState("");
 
 	const handleSubmit = () => {
-		// Submit feedback logic here
 		console.log("Submitting feedback:", {
 			fullName,
 			email,

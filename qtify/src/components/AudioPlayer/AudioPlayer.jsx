@@ -34,7 +34,7 @@ function AudioPlayer({ song, album = "Album Name" }) {
 	function handleVolumeChange(e) {
 		const value = parseInt(e.target.value);
 		setVolume(value);
-		// console.log(value);
+
 		if (value === 0) {
 			volumeMute();
 			audioPlayer.current.volume = 0;
@@ -164,8 +164,6 @@ function AudioPlayer({ song, album = "Album Name" }) {
 					id={styles.audio_player}
 					onTimeUpdate={handleCurrentTimeUpdate}
 					loop={songLoop}
-					// onLoadedMetadata={handleLoadMetaData}
-					// controls
 				/>
 				<div className={styles.song_progress_container}>
 					<p className={styles.currOrTotalTime}>
@@ -175,7 +173,6 @@ function AudioPlayer({ song, album = "Album Name" }) {
 						<input
 							type="range"
 							ref={sliderSong}
-							// style={{ "--my-css-var": 10 } as React.CSSProperties}
 							onChange={handleChangeProgress}
 							className={styles.song_progress}
 							max={metaDataDuration || "100"}

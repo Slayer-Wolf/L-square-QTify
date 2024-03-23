@@ -13,7 +13,6 @@ const Home = () => {
 	const { newAlbums, topAlbums, songs } = data;
 	const [topAlbumSongs, setTopAlbumSongs] = useState([]);
 	const [newAlbumSongs, setNewAlbumSongs] = useState([]);
-	// const [song, setSong] = useState({});
 
 	const [songsData, setSongsData] = useState([]);
 
@@ -70,10 +69,7 @@ const Home = () => {
 			console.log("key: ", key);
 			return song?.genre?.key === key;
 		});
-		console.log(
-			"generateNewSongs triggered and filtered this Data: ",
-			newSongsArray,
-		);
+
 		setFilteredData(newSongsArray);
 	};
 
@@ -81,7 +77,7 @@ const Home = () => {
 		setValue(newValue);
 		generateNewSongs(newValue);
 	};
-	// console.log(filteredData);
+
 	useEffect(() => {
 		generateTopAlbumSongs();
 		generateNewAlbumSongs();

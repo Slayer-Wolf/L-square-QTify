@@ -69,8 +69,6 @@ const Album = () => {
 		fetchData();
 	}, [albumId, getAlbumBySlug]);
 
-	// console.log(album, "albumData");
-
 	const handleChange = (event, value) => {
 		setPage(value);
 	};
@@ -108,7 +106,6 @@ const Album = () => {
 							<h3>{album.title}</h3>
 							<p className={Styles.album_description}>{album?.description}</p>
 							<p>
-								{/* {album.songs.length} songs &middot; {album.follows} follows */}
 								{album.songs.length} songs &middot;{" "}
 								{calAlbumDuration(album?.songs)} &middot;{" "}
 								{(album.follows / 1000).toFixed(1)}k follows
