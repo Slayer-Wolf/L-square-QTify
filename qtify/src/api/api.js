@@ -30,9 +30,19 @@ export const fetchSongs = async () => {
 export const fetchFilters = async () => {
 	try {
 		const res = await axios.get(`${BACKEND}/genres`);
-		console.log(res.data, "apiData");
+		// console.log(res.data, "apiData");
 		return res.data;
 	} catch (error) {
 		console.error(error);
+	}
+};
+
+export const getAlbumBySlug = async (slug) => {
+	try {
+		const res = await axios.get(`${BACKEND}/album/${slug}`);
+		// console.log(res.data, "albumData.data");
+		return res.data;
+	} catch (err) {
+		console.log(err);
 	}
 };

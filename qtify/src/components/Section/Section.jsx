@@ -27,7 +27,7 @@ export default function Section({ title, data, filterSource, type }) {
 		setValue(newValue);
 		setSelectedFilterIndex(newValue);
 	}
-	console.log(filters, "filterdata");
+	// console.log(filters, "filterdata");
 	const showFilters = filters.length > 1;
 	const CardToShow = data.filter((card) =>
 		showFilters && selectedFilterIndex !== 0
