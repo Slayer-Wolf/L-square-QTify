@@ -17,11 +17,11 @@ function App() {
 		});
 	};
 
-	useEffect(() => {
-		fetchData("topAlbums", fetchTopAlbums);
-		fetchData("newAlbums", fetchNewAlbums);
-		fetchData("songs", fetchSongs);
-	}, []);
+	// useEffect(() => {
+	// 	fetchData("topAlbums", fetchTopAlbums);
+	// 	fetchData("newAlbums", fetchNewAlbums);
+	// 	fetchData("songs", fetchSongs);
+	// }, []);
 
 	const { topAlbums = [], newAlbums = [], songs = [] } = data;
 
